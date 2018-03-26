@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	
+	
+	<!-- 1. 配置目标类 -->
+	<bean id="userServiceId" class="com.uu.b_factory_bean.UserServiceImp"></bean>
+	
+	<!--2.配置 切面类  -->
+	<bean id="myAspectId" class="com.uu.b_factory_bean.MyAspect"></bean>
+	
+	<!--
+		3. 创建代理类
+		* 使用工厂bean FactoryBean， 底层调用getObject() 返回特殊Bean
+		* ProxyFacotryBean  用于创建工厂bean ,生成特殊代理对象
+			interfaces: 确定接口们
+				通过<arry> 可以设置多个值
+				只有一个值时，value=""
+				
+			target : 确定目标类
+			interceptorNames : 通知 切面类 的名称，类型String[] ,
+								一个值Value
+			optimize: 强制使用cglib
+				<property name="optimize" value="true"/>
+			 
+	 	底层机制：
+	 		如果目标类有接口，采用jdk动态代理
+	 		如果没有接口，采用字节码增强
+	 		如果声明 optimize = true , 无论是否有接口，都采用cglib
+	 		
+	 
+	  -->
+	<bean id="proxyServiceId" class="org.springframework.aop.framework.ProxyFactoryBean">
+	
+		<property name="interfaces" value="com.uu.b_factory_bean.UserService"></property>
+		<!--配置目标类  -->
+		<property name="target" ref="userServiceId"></property>
+		<!-- 配置切面类           -->
+		<property name="interceptorNames" value="myAspectId"></property>
+	</bean>
+
+
+</beans>

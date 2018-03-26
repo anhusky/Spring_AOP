@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+					http://www.springframework.org/schema/beans 
+					http://www.springframework.org/schema/beans/spring-beans.xsd
+					http://www.springframework.org/schema/aop 
+					http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<!-- bean definitions here -->
+	
+	<!--配置目标类  -->
+	<bean id="UserService" class ="com.uu.c_spring_aop.UserServiceImp"></bean>
+	
+	<!-- 配置切面类 -->
+	<bean id="myaspect" class="com.uu.c_spring_aop.MyAspect"> </bean>
+	
+	<!--  
+	aop 编程
+	1.  导入命名空间
+	2. 使用<app:config> 进行配置
+		proxy-target-class       声明是否使用cglib
+		aop:pointcut	切入点，从哪目标对象获得具体方法
+		aop:advisor		特殊的切面，只有一个通知和一个切入点
+			advice-ref 通知引入
+			pointcut-ref 切入点引用
+	
+	3. 切入点表达式
+		execution(* com.uu.c_spring_aop.*.*(..))
+		选择方法	返回值任意				包
+			
+			
+	
+	
+	
+	-->
+	<aop:config  proxy-target-class="true">
+		<aop:pointcut expression="execution(* com.uu.c_spring_aop.*.*(..))" id="myPointCut"></aop:pointcut>
+		<aop:advisor advice-ref="myaspect" pointcut-ref="myPointCut"/>
+	</aop:config>
+</beans>

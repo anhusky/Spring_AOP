@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd
+       					   http://www.springframework.org/schema/aop 
+       					   http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<!-- 1 创建目标类 -->
+	<bean id="userServiceId" class="com.uu.d_aspect.a_xml.UserServiceImp"></bean>
+	<!-- 2 创建切面类（通知） -->
+	<bean id="myAspectId" class="com.uu.d_aspect.a_xml.MyAspect"></bean>
+	<!-- 3 aop编程 <aop:aspect> 将切面类 声明“切面”，从而获得通知（方法） ref 切面类引用 <aop:pointcut> 
+		声明一个切入点，所有的通知都可以使用。 expression 切入点表达式 id 名称，用于其它通知引用 -->
+
+	<aop:config>
+		<aop:aspect ref="myAspectId">
+			<aop:pointcut
+				expression="execution(* com.uu.d_aspect.a_xml.UserServiceImp.*(..))"
+				id="myPointCut" />
+			<!-- 前置通知： method: 通知，及方法名 pointcut: 切入点表达式 pointcut-ref: 切入点引用 -->
+			<!-- <aop:before method="myBefore" pointcut-ref="myPointCut" /> -->
+
+			<!-- <aop:after-returning method="MyAfterRetruning" pointcut-ref="myPointCut" 
+				returning="ret"/> -->
+
+
+			<!-- <aop:around method="myAround" pointcut-ref="myPointCut" /> -->
+
+			<aop:after-throwing method="myAfterThrowing"
+				pointcut-ref="myPointCut" throwing="e" />
+
+
+			<aop:after method="myAfter" pointcut-ref="myPointCut" />
+
+		</aop:aspect>
+
+
+
+
+	</aop:config>
+</beans>
