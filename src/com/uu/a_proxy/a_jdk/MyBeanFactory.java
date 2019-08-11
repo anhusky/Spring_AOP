@@ -1,5 +1,7 @@
 package com.uu.a_proxy.a_jdk;
 
+import com.uu.a_proxy.b_cglib.MyAspect;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
