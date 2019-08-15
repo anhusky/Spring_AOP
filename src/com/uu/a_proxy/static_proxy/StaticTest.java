@@ -14,6 +14,6 @@ public class StaticTest {
         // 代理对象，把目标对象传给代理对象，建立代理对象
         UserServiceImplProxy userServiceImplProxy = new UserServiceImplProxy(targetService);
 
-        userServiceImplProxy.save(); // 执行的是代理的方法
+        userServiceImplProxy.eat(); // 执行的是代理的方法
     }
 }

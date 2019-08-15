@@ -1,7 +1,5 @@
 package com.uu.a_proxy.jdk_proxy;
 
-import com.uu.a_proxy.cglib_proxy.MyAspect;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -16,25 +14,19 @@ public class MyBeanFactory {
 	
 	public static UserService createService(){
 		final UserServiceImp service = new UserServiceImp();
-		final MyAspect aspect = new MyAspect();
-		
-		
-		UserService  proxyService = (UserService) Proxy.newProxyInstance(
+
+		return (UserService) Proxy.newProxyInstance(
 				MyBeanFactory.class.getClassLoader(), 
 				service.getClass().getInterfaces(), new InvocationHandler() {
-					
 					public Object invoke(Object proxy, Method method, Object[] args)
 							throws Throwable {
-						
-						aspect.before();
+
+						System.out.println("------洗手-----");
 						Object obj = method.invoke(service, args);
-						aspect.after();
+						System.out.println("------洗碗-----");
 						
 						return obj;
 					}
 				});
-		
-		
-		return proxyService;
 	}
 }

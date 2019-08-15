@@ -14,10 +14,9 @@ import java.lang.reflect.Method;
 public class MyBeanFactory {
 	
 	
-	public static UserService createService(){
+	public static UserServiceImp createService(){
 		final UserServiceImp service = new UserServiceImp();
-		final MyAspect aspect = new MyAspect();
-		
+
 		
 		// cglib 使用
 		//1. 创建核心类
@@ -37,19 +36,17 @@ public class MyBeanFactory {
 			
 			public Object intercept(Object proxy, Method method, Object[] args,
 					MethodProxy emthodProxy) throws Throwable {
-				aspect.before();
-				
 				// 目标类的目标方法
 				Object obj = method.invoke(service, args);
-				//  同上   执行代理类的父类，就是  目标类
-				emthodProxy.invokeSuper(proxy, args);
-				aspect.after();
+
+				System.out.println("------洗手-----");
+				Object obj1 = emthodProxy.invokeSuper(proxy, args);
+				System.out.println("------洗碗-----");
+
 				return obj;
 			}
 		});
 		
-		UserServiceImp proxyService = (UserServiceImp) enhancer.create();
-		
-		return proxyService;
+		return (UserServiceImp) enhancer.create();
 	}
 }

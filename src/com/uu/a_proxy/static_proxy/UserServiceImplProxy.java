@@ -14,9 +14,9 @@ public class UserServiceImplProxy implements IUserService {
     }
 
     @Override
-    public void save() {
-        System.out.println("------开始事物-----");
-        userService.save();
-        System.out.println("------提交事物-----");
+    public void eat() {
+        System.out.println("------洗手-----");
+        userService.eat();
+        System.out.println("------洗碗-----");
     }
 }

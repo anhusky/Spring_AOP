@@ -6,9 +6,8 @@ public class CglibTest {
 
 	@Test
 	public void demo() {
-		UserService proxyService = MyBeanFactory.createService();
-		proxyService.addUser();
-		//proxyService.updateUser();
-		//proxyService.deleteUser();
+		UserServiceImp proxyService = MyBeanFactory.createService();
+		proxyService.eat();
+
 	}
 }
