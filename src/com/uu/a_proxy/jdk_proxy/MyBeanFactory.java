@@ -19,7 +19,7 @@ public class MyBeanFactory {
 				MyBeanFactory.class.getClassLoader(), service.getClass().getInterfaces(), new InvocationHandler() {
 
 					/**
-					 * @param proxy   被代理类
+					 * @param proxy   代理类
 					 * @param method  被代理方法
 					 * @param args	  方法参数
 					 * @return		  代理对象
