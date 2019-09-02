@@ -1,5 +1,7 @@
 package com.uu.a_proxy.static_proxy;
 
+import org.junit.Test;
+
 /**
  * @author liuph
  * @desc
@@ -15,5 +17,10 @@ public class StaticTest {
         UserServiceImplProxy userServiceImplProxy = new UserServiceImplProxy(targetService);
 
         userServiceImplProxy.eat(); // 执行的是代理的方法
+    }
+
+    @Test
+    public void test(){
+         System.out.println("社群管理功能");
     }
 }
