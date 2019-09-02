@@ -7,4 +7,9 @@ package com.uu.a_proxy.static_proxy;
  */
 public interface IUserService {
     void eat();
+
+    default void play(){
+         System.out.println("jpg下载功能");
+    }
+
 }
