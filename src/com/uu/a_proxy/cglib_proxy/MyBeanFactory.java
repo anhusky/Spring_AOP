@@ -19,31 +19,33 @@ public class MyBeanFactory {
 
 		
 		// cglib 使用
-		//1. 创建核心类
+		//1. 增强因子，cglib核心类
 		Enhancer enhancer = new Enhancer();
 		// 2. 绑定父类
 		enhancer.setSuperclass(service.getClass());
 		/*
 		 * 3. 设置回调  
-		 * 		MethodInterceptor 接口  等效 jdk INVocationHandler 接口
-		 * 
-		 *  intercept() 等效 jdk invoke()
-		 *  	参数1,2,3  一样
-		 *  	参数4 ： methodproxy 方法的代理
-		 * 
+		 * 		MethodInterceptor  		方法拦截器
+		 *
 		 */
 		enhancer.setCallback(new MethodInterceptor() {
-			
-			public Object intercept(Object proxy, Method method, Object[] args,
-					MethodProxy emthodProxy) throws Throwable {
-				// 目标类的目标方法
-				Object obj = method.invoke(service, args);
 
+			/**
+			 * @param proxy  	  代理对象
+			 * @param method	  被代理对象的方法
+			 * @param args		  方法参数
+			 * @param emthodProxy 代理对象的方法（可以看做是子类对象）
+			 * @return			  代理对象
+			 * @throws Throwable
+			 */
+			public Object intercept(Object proxy, Method method, Object[] args, MethodProxy emthodProxy) throws Throwable {
+				// 目标类的目标方法
 				System.out.println("------洗手-----");
-				Object obj1 = emthodProxy.invokeSuper(proxy, args);
+				// method.invoke(service,args);
+				emthodProxy.invokeSuper(proxy, args);
 				System.out.println("------洗碗-----");
 
-				return obj;
+				return proxy;
 			}
 		});
 		
